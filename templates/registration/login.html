@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+
+{% block content %}
+    <div class="d-flex justify-content-center">
+        <div class="py-5">
+            <p class="lead">If you do not have an account, register here</p>
+            <a href="{% url 'signup' %}" class="btn btn-primary mb-4 w-100">Sign up</a>
+            <p class="lead">Sign in</p>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout="floating" %}
+
+                <button type="submit" class="btn btn-primary mb-4 w-100">Sign in</button>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}

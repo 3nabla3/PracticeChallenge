@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Home</h1>
+    <h3>You can message a user in here</h3>
+    <br>
+
+    {% for user in users %}
+        <div class="row align-items-center">
+            <div class="col-2">
+                {{ user.username }}
+            </div>
+            <div class="col-2">
+                <a href="{% url 'send_message' user.id %}" class="btn btn-link">Message</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

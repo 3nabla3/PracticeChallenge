@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome to my messaging app</h1>
+    <p>Here you can send messages to other users</p>
+    <br>
+    <a href="{% url 'user_list' %}" class="btn btn-primary">View users</a>
+    <br>
+    {% if not user.is_authenticated %}
+    Make sure to log in first
+    <br>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    {% endif %}
+{% endblock %}
