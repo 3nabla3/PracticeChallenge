@@ -45,9 +45,18 @@ class MessageDetailView(LoginRequiredMixin, ListView, FormView):
     success_url = '#'
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        other_user = User.objects.get(pk=self.kwargs.get('pk'))
+        messages = Message.objects.filter(
+            sender=self.request.user,
+            receiver=other_user
+        ) | Message.objects.filter(
+            sender=other_user,
+            receiver=self.request.user
+        ).order_by('created_at')
+
         context = super().get_context_data(**kwargs)
-        pk = self.kwargs.get('pk')
-        context['other_user'] = User.objects.get(pk=pk)
+        context['other_user'] = other_user
+        context['messages'] = messages
         return context
 
     def form_valid(self, form):
